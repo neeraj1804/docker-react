@@ -1,0 +1,28 @@
+version: "3.1"
+
+services: 
+  react-app:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: .
+    image: neerajjainwalmart/frontend
+    ports: 
+      - 3000:3000
+    restart: always
+    volumes: 
+      - node_modules:/var/app/node_modules
+      - .:/var/app
+  
+  tests:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: .
+    image: neerajjainwalmart/frontendtest
+    restart: always
+    volumes: 
+      - node_modules:/var/app/node_modules
+      - .:/var/app
+    command: ["npm", "run", "test"]
+
+volumes: 
+  node_modules:
